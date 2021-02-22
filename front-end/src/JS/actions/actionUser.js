@@ -33,6 +33,13 @@ export const getUserById = (id) => (dispatch) => {
     .then((res) => dispatch({ type: GET_CONTACT_BY_ID, payload: res.data }));
 };
 
+export const editUser = (id, editUser) => (dispatch) => {
+  axios
+    .put(`/api/users/${id}`, editUser)
+    .then(() => dispatch(getContacts()))
+    .catch((err) => console.log(err));
+};
+
 export const toggleTrue = () => {
   return {
     type: TOGGLE_TRUE,

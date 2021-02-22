@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import AddUser from "./components/AddUser";
 import UserCard from "./components/UserCard";
-import { getContacts } from "./JS/actions/actionUser";
+import { getContacts, toggleFalse } from "./JS/actions/actionUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function App() {
           <Button variant="outline-primary button">Contact List</Button>
         </Link>
         <Link to="/Add_user">
-          <Button variant="primary button">Add Contact</Button>
+          <Button variant="primary button" onClick={()=>dispatch(toggleFalse())}>Add Contact</Button>
         </Link>
 
         <Switch>

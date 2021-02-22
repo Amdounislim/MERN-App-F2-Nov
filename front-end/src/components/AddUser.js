@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../JS/actions/actionUser";
+import { addUser, editUser } from "../JS/actions/actionUser";
 import { Link } from "react-router-dom";
 
 const AddUser = () => {
@@ -21,7 +21,7 @@ const AddUser = () => {
     } else {
       setNewUser({ name: "", email: "", phone: "" });
     }
-  }, [isEdit, userId]);
+  }, [userId, isEdit]);
 
   const handleChange = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
@@ -50,7 +50,7 @@ const AddUser = () => {
             color: "white",
           }}
         >
-          Add New Contact
+          {isEdit ? "Edit Contact" : "Add New Contact"}
         </Card.Header>
 
         <Card.Body>
@@ -104,12 +104,18 @@ const AddUser = () => {
           <Link to="/User_list">
             <Button
               variant="outline-primary edit-button"
-              onClick={() => dispatch(addUser(newUser))}
+              onClick={() => {
+                isEdit
+                  ? dispatch(editUser(newUser._id, newUser))
+                  : dispatch(addUser(newUser));
+              }}
             >
-              Add
+              {isEdit ? "Save" : "Add"}
             </Button>
           </Link>
-          <Button variant="outline-danger edit-button">Cancel</Button>
+          <Link to="/User_list">
+            <Button variant="outline-danger edit-button">Cancel</Button>
+          </Link>
         </div>
       </Card>
     </div>
